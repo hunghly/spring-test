@@ -16,6 +16,18 @@
     <button>Join now</button>
 </form>
 
+<div th:each="item : ${list}">
+    <p th:text="${item}"></p>
+</div>
+
+<div class="alert alert-danger" th:if="${list == null}">
+    Something bad happened
+</div>
+
+<div th:fragment="my-partial">
+    partial content goes here...
+</div>
+
 
 </body>
 </html>

@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Controller
 class HelloController {
 
@@ -27,6 +29,11 @@ class HelloController {
     @PostMapping("/join")
     public String joinCohort(@RequestParam(name = "cohort") String cohort, Model model) {
         System.out.println(cohort);
+        ArrayList<String> stuff = new ArrayList<>();
+        stuff.add("one");
+        stuff.add("two");
+        stuff.add("three");
+        model.addAttribute("list", stuff);
         model.addAttribute("cohort", "Welcome to " + cohort + "!");
         return "join";
     }
