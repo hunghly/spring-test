@@ -10,9 +10,10 @@
 <title>Show Page</title>
 <body>
 <h1>Show Page</h1>
-<th:block th:if="${Post != null}">
-    <h1 th:text="${Post.getTitle()}"></h1>
-    <h3 th:text="${Post.getBody()}"></h3>
+<th:block th:if="${post != null}">
+    <h1 th:text="${post.getTitle()}"></h1>
+    <h3 th:text="${post.getBody()}"></h3>
+    <h3 th:text="${post.getUser().getEmail()}"></h3>
 </th:block>
 <!--<div th:if="${Post != null}">-->
 <!--    <h1 th:text="${Post.title}"></h1>-->

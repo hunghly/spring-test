@@ -15,6 +15,7 @@
     <div>
         <h1 th:text="${post.title}"></h1>
         <h3 th:text="${post.body}"></h3>
+        <h3 th:text="${post.getUser().getEmail()}"></h3>
     </div>
 </th:block>
 </body>
