@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
+
 @Configuration
 @EnableAutoConfiguration
 @EntityScan(basePackageClasses=Post.class)
@@ -29,10 +31,10 @@ public class PostController {
 
     @RequestMapping(path="/posts", method = RequestMethod.GET)
     public String viewIndexPage(Model view) {
-        ArrayList<Post> posts = new ArrayList<>();
-        User hung = new User(1,"hung", "hung@email.com", "123");
-        posts.add(new Post("I like mangoes", "they are juicy!", hung));
-        posts.add(new Post("Selling beer", "No corona for sale.", hung));
+        List<Post> posts = postDao.findAll();
+//        User hung = new User(1,"hung", "hung@email.com", "123");
+//        posts.add(new Post("I like mangoes", "they are juicy!", hung));
+//        posts.add(new Post("Selling beer", "No corona for sale.", hung));
         view.addAttribute("Posts", posts);
 
 //        view.addAttribute("posts", postDao.findAll());
@@ -40,7 +42,6 @@ public class PostController {
 //        postDao.deleteById((long) 1);
 //        postDao.updateById("I like mangoes", "It works somehow...", 2);
 //        this.postDao.save(new Post("some title", "some body", hung));
-        System.out.println("saved");
 
         return "/posts/index";
     }
@@ -53,14 +54,33 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    @ResponseBody
-    public String viewPostCreation() {
-        return "view the form for creating a post";
+    public String viewPostCreation(Model view) {
+        view.addAttribute("action", "create");
+        view.addAttribute("post", new Post());
+        return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String doPostCreation() {
-        return "create a new post";
+    public String doPostCreation(@ModelAttribute Post post) {
+        User hung = new User(1,"hung", "hung@email.com", "123");
+        post.setUser(hung);
+        postDao.save(post);
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/posts/edit/{id}")
+    public String viewPostEdit(@PathVariable long id, Model view) {
+        Post post = postDao.getOne(id);
+        view.addAttribute("action", "edit");
+        view.addAttribute("post", post);
+        return "posts/create";
+    }
+
+    @RequestMapping(path = "/posts/edit", method = RequestMethod.POST)
+    public String doPostEdit(@ModelAttribute Post post, @RequestParam Long id) {
+        // need stuff here
+        Post foundPost = postDao.getOne(id);
+        postDao.updateById(post.getTitle(), post.getBody(), foundPost.getUser(), id);
+        return "redirect:/posts";
     }
 }

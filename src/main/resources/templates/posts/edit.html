@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="partials :: head">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<form th:action="@{/posts/edit}" th:method="post" th:object="${post}">
+    <input type="hidden" th:field="*{id}">
+    Title:
+    <input th:field="*{title}">
+    <br/>
+    Body:
+    <input th:field="*{body}">
+    <br/>
+    <input type="submit">
+</form>
+
+</body>
+</html>

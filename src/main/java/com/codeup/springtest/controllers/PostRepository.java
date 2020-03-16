@@ -1,6 +1,7 @@
 package com.codeup.springtest.controllers;
 
 import com.codeup.springtest.models.Post;
+import com.codeup.springtest.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,8 +22,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Transactional
     @Modifying
-    @Query("update Post p set p.title = ?1, p.body = ?2 where p.id = ?3")
-    void updateById(String title, String body, long id);
+    @Query("update Post p set p.title = ?1, p.body = ?2, p.user = ?3 where p.id = ?4")
+    void updateById(String title, String body, User user, long adId);
 
     @Override
     void deleteById(Long aLong);
