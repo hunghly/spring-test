@@ -17,6 +17,7 @@
         <h3 th:text="${post.body}"></h3>
         <h3 th:text="${post.getUser().getEmail()}"></h3>
     </div>
+    <button type="submit"><a th:href="@{'/posts/delete/' + ${post.getId()}}">Delete Ad</a></button>
 </th:block>
 </body>
 </html>

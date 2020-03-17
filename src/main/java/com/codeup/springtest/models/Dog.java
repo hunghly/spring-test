@@ -20,7 +20,14 @@ public class Dog {
     @Column(name = "reside_state",columnDefinition = "CHAR(2) DEFAULT 'XX'")
     private String resideState;
 
-    public Dog() {};
+    public Dog() {}
+
+    public Dog(long id, int age, String name, String resideState) {
+        this.id = id;
+        this.age = age;
+        this.name = name;
+        this.resideState = resideState;
+    }
 
     public long getId() {
         return id;

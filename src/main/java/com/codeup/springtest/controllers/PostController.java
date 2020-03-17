@@ -2,18 +2,20 @@ package com.codeup.springtest.controllers;
 
 import com.codeup.springtest.models.Post;
 import com.codeup.springtest.models.User;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.Configuration;
+import com.codeup.springtest.repositories.PostRepository;
+import com.codeup.springtest.repositories.UserRepository;
+import com.codeup.springtest.services.EmailService;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Configuration
-@EnableAutoConfiguration
-@EntityScan(basePackageClasses=Post.class)
+//@Configuration
+//@EnableAutoConfiguration
+//@EntityScan(basePackageClasses=Post.class)
+@ComponentScan("com.codeup.springtest.services")
 @Controller
 public class PostController {
 
@@ -33,17 +35,12 @@ public class PostController {
     @RequestMapping(path="/posts", method = RequestMethod.GET)
     public String viewIndexPage(Model view) {
         List<Post> posts = postDao.findAll();
-//        User hung = new User(1,"hung", "hung@email.com", "123");
-//        posts.add(new Post("I like mangoes", "they are juicy!", hung));
-//        posts.add(new Post("Selling beer", "No corona for sale.", hung));
+
+        User found = userDao.findUserByUsername("hung");
+        System.out.println(found.getUsername());
+        System.out.println(found.getEmail());
+
         view.addAttribute("Posts", posts);
-
-//        view.addAttribute("posts", postDao.findAll());
-//        this.postDao.delete(new Post("My first Post!", "I'm learning about Repos and JPA!"));
-//        postDao.deleteById((long) 1);
-//        postDao.updateById("I like mangoes", "It works somehow...", 2);
-//        this.postDao.save(new Post("some title", "some body", hung));
-
         return "/posts/index";
     }
 
@@ -52,6 +49,13 @@ public class PostController {
 //        Post post = new Post("I like turtles", "I like all the ninja turtles", bob);
         view.addAttribute("post", postDao.getOne(id));
         return "/posts/show";
+    }
+
+    @GetMapping("/posts/delete/{id}")
+    public String doDeletePost(@PathVariable long id, Model view) {
+        System.out.println("myid " + id);
+        postDao.deleteById(id);
+        return "redirect:/posts";
     }
 
     @GetMapping("/posts/create")

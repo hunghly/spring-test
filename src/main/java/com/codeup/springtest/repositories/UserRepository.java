@@ -1,4 +1,4 @@
-package com.codeup.springtest.controllers;
+package com.codeup.springtest.repositories;
 
 import com.codeup.springtest.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +17,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Override
     void deleteById(Long aLong);
+
+    User findUserByUsername(String username);
+
+
 }

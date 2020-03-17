@@ -1,4 +1,4 @@
-package com.codeup.springtest.controllers;
+package com.codeup.springtest.services;
 
 import com.codeup.springtest.models.Post;
 import com.mysql.cj.xdevapi.SchemaImpl;
