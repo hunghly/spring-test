@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Index</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price In Cents</th>
+        <th>In Stock</th>
+        <th>Page</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="product : ${products}">
+        <tr>
+            <td th:text="${product.getId()}"></td>
+            <td th:text="${product.getName()}"></td>
+            <td th:text="${product.getDescription()}"></td>
+            <td th:text="${product.getPriceInCents()}"></td>
+            <td th:text="${product.isInStock()}"></td>
+            <td><a th:href="@{'/products/' + ${product.getId()}}">View Page</a></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+
+<!--        <tr>-->
+<!--            <td th:text="${product.id}"></td>-->
+<!--            <td th:text="${product.name}"></td>-->
+<!--            <td th:text="${product.description}"></td>-->
+<!--            <td th:text="${product.priceInCents}"></td>-->
+<!--            <td th:text="${product.inStock}"></td>-->
+<!--        </tr>-->
+
+</body>
+</html>

@@ -36,9 +36,9 @@ public class PostController {
     public String viewIndexPage(Model view) {
         List<Post> posts = postDao.findAll();
 
-        User found = userDao.findUserByUsername("hung");
-        System.out.println(found.getUsername());
-        System.out.println(found.getEmail());
+//        User found = userDao.findUserByUsername("hung");
+//        System.out.println(found.getUsername());
+//        System.out.println(found.getEmail());
 
         view.addAttribute("Posts", posts);
         return "/posts/index";
@@ -53,7 +53,6 @@ public class PostController {
 
     @GetMapping("/posts/delete/{id}")
     public String doDeletePost(@PathVariable long id, Model view) {
-        System.out.println("myid " + id);
         postDao.deleteById(id);
         return "redirect:/posts";
     }
