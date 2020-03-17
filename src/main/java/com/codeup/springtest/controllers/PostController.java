@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
@@ -20,12 +19,14 @@ public class PostController {
 
     private final PostRepository postDao;
     private final UserRepository userDao;
+    private final EmailService emailDao;
 
 //    public PostController(){};
 
-    public PostController(PostRepository postDao, UserRepository userDao) {
+    public PostController(PostRepository postDao, UserRepository userDao, EmailService emailDao) {
         this.postDao = postDao;
         this.userDao = userDao;
+        this.emailDao = emailDao;
     }
 
 
@@ -62,9 +63,10 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String doPostCreation(@ModelAttribute Post post) {
-        User hung = new User(1,"hung", "hung@email.com", "123");
+        User hung = new User(1,"hung", "hunghly@gmail.com", "123");
         post.setUser(hung);
         postDao.save(post);
+        emailDao.prepareAndSend(post, "Post Created!", "We created your post: " + post.getTitle());
         return "redirect:/posts";
     }
 

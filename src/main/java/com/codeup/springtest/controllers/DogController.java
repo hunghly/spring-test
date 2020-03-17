@@ -19,7 +19,6 @@ public class DogController {
         this.dogDao = dogDao;
     }
 
-
     @GetMapping("/dogs")
     public String viewDogs(Model view) {
         List<Dog> dogs = dogDao.findAll();
