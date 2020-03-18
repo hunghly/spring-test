@@ -2,6 +2,9 @@ package com.codeup.springtest.controllers;
 
 import com.codeup.springtest.models.Product;
 import com.codeup.springtest.repositories.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +21,9 @@ public class ProductController {
     }
 
     @RequestMapping(path = "/products", method = RequestMethod.GET)
-    public String viewProducts(Model view) {
-        view.addAttribute("products", productDao.findAll());
+    public String viewProducts(Model view, @PageableDefault(value=10) Pageable pageable) {
+        view.addAttribute("page", productDao.findAll(pageable));
+//        view.addAttribute("products", productDao.findAll());
         return "/products/index";
     }
 
@@ -67,10 +71,14 @@ public class ProductController {
     }
 
     @GetMapping("/products/search")
-    public String searchProduct(@RequestParam String query, Model view) {
-        System.out.println(query);
-        List<Product> productList = productDao.searchByNameOrDescription(query);
-        view.addAttribute("products", productList);
+    public String searchProduct(@RequestParam String query, Model view, @PageableDefault(value=10) Pageable pageable) {
+//        System.out.println(query);
+        Page<Product> productList = productDao.searchByNameOrDescription(query, pageable);
+//        for (Product product : productList) {
+//            System.out.println(product.getName());
+//        }
+        view.addAttribute("query", query);
+        view.addAttribute("page", productList);
         return "/products/index";
     }
 
