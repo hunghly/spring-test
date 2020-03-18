@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<nav th:fragment="navbar" th:with="content=${content}, searchBtn=${search}">
+    <label th:for="search-bar" th:text="${content}"></label>
+
+<!--    <p th:value="${search}"></p>-->
+    <form th:action="@{|/products/search|}" th:method="get">
+        <input th:type="text" th:name="query">
+        <input th:type="submit" th:value="${searchBtn}">
+    </form>
+</nav>
+
+</html>

@@ -17,6 +17,8 @@
     </tr>
     </thead>
     <tbody>
+    <div th:replace="products/navbar.html :: navbar(content='Search by name or description', search='Search')">
+    </div>
     <th:block th:each="product : ${products}">
         <tr>
             <td th:text="${product.getId()}"></td>
@@ -37,6 +39,5 @@
 <!--            <td th:text="${product.priceInCents}"></td>-->
 <!--            <td th:text="${product.inStock}"></td>-->
 <!--        </tr>-->
-
 </body>
 </html>

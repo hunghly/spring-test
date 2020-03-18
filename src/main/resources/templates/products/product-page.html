@@ -10,6 +10,8 @@
 <h4>Description: <span th:text="${product.description}"></span></h4>
 <h4>Price in cents: <span th:text="${product.priceInCents}"></span></h4>
 <h4>In Stock?: <span th:text="${product.inStock}"></span></h4>
-<a th:href="@{'/products/delete/' + ${product.id}}">Delete</a>
+<form th:action="@{|/products/delete/${product.id}|}" th:method="post" th:object="${product}">
+    <input type="submit" value="Delete">
+</form>
 </body>
 </html>
