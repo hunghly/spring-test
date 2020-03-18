@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>$Title$</title>
+</head>
+<body>
+<h3>Name: <span th:text="${product.name}"></span></h3>
+<h4>Id: <span th:text="${product.id}"></span></h4>
+<h4>Description: <span th:text="${product.description}"></span></h4>
+<h4>Price in cents: <span th:text="${product.priceInCents}"></span></h4>
+<h4>In Stock?: <span th:text="${product.inStock}"></span></h4>
+<form th:action="@{|/products/delete/${product.id}|}" th:method="post" th:object="${product}">
+    <input type="submit" value="Delete">
+</form>
+</body>
+</html>

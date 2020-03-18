@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Index</title>
+</head>
+<body>
+
+
+<div class="container">
+    <!--    &lt;!&ndash; Show the ads &ndash;&gt;-->
+    <!--    <div th:each="product : ${page}">-->
+    <!--        <h1 th:text="${product.name}" />-->
+    <!--        <p th:text="${product.description}" />-->
+    <!--    </div>-->
+
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price In Cents</th>
+            <th>In Stock</th>
+            <th>Page</th>
+        </tr>
+        </thead>
+        <tbody>
+        <div th:replace="products/navbar.html :: navbar(content='Search by name or description', search='Search')">
+        </div>
+        <th:block th:each="product : ${page}">
+            <tr>
+                <td th:text="${product.getId()}"></td>
+                <td th:text="${product.getName()}"></td>
+                <td th:text="${product.getDescription()}"></td>
+                <td th:text="${product.getPriceInCents()}"></td>
+                <td th:text="${product.isInStock()}"></td>
+                <td><a th:href="@{'/products/' + ${product.getId()}}">View Page</a></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
+
+    <!-- Build the pagination component -->
+    <nav class="text-center">
+<!--        <ul class="pagination">-->
+            <th:block th:class="${page.isFirst()}? 'disabled' : ''">
+                <span th:if='${page.isFirst()}'>← First</span>
+                <a th:if='${!page.isFirst() && query == null}' th:href="'?page=0'">← First</a>
+                <a th:if='${!page.isFirst() && query != null}' th:href="'search?query=' + ${query} + '&page=0'">← First</a>
+            </th:block>
+            <th:block th:class="${page.hasPrevious()}? '' : 'disabled'">
+                <span th:if='${not page.hasPrevious()}'>«</span>
+                <a th:if='${page.hasPrevious() && query == null}' th:href="'?page=' + ${page.getNumber() - 1}" title='Go to previous page'>«</a>
+                <a th:if='${page.hasPrevious() && query != null}' th:href="'search?query=' + ${query} + '&page=' + ${page.getNumber() - 1}" title='Go to previous page'>«</a>
+            </th:block>
+            <th:block th:each="i : ${#numbers.sequence(1, page.getTotalPages())}">
+                <span
+                        th:if='${(i - 1) == param.page}'
+                        th:text='${i}'>
+                    1
+                </span>
+<!--                + '&' + ${query}-->
+
+                <a th:if='${((i - 1) != param.page) && (query == null)}' th:href="'?page=' + ${(i -1)}">
+                    <span th:text='${i}'>1</span>
+                </a>
+                <a th:if='${((i - 1) != param.page) && (query != null)}' th:href="'search?query=' + ${query} + '&page=' + ${(i -1)}">
+                    <span th:text='${i}'>1</span>
+                </a>
+            </th:block>
+            <th:block th:class="${page.hasNext()} ? '' : 'disabled'">
+                <span th:if='${not page.hasNext()}'>»</span>
+                <a th:if='${page.hasNext() && query == null}' th:href="'?page=' + ${page.getNumber() + 1}" title='Go to next page'>»</a>
+                <a th:if='${page.hasNext() && query != null}' th:href="'search?query=' + ${query} +  '&page=' + ${page.getNumber() + 1}" title='Go to next page'>»</a>
+            </th:block>
+            <th:block th:class="${page.isLast()}? 'disabled' : ''">
+                <span th:if='${page.isLast()}'>Last →</span>
+                <a th:if='${not page.isLast() && query == null}' th:href="'?page=' + ${page.getTotalPages() - 1}">Last →</a>
+                <a th:if='${not page.isLast() && query != null}' th:href="'search?query=' + ${query} + '&page=' + ${page.getTotalPages() - 1}">Last →</a>
+            </th:block>
+        </ul>
+    </nav>
+</div>
+
+
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>Id</th>-->
+<!--        <th>Name</th>-->
+<!--        <th>Description</th>-->
+<!--        <th>Price In Cents</th>-->
+<!--        <th>In Stock</th>-->
+<!--        <th>Page</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <div th:replace="products/navbar.html :: navbar(content='Search by name or description', search='Search')">-->
+<!--    </div>-->
+<!--    <th:block th:each="product : ${products}">-->
+<!--        <tr>-->
+<!--            <td th:text="${product.getId()}"></td>-->
+<!--            <td th:text="${product.getName()}"></td>-->
+<!--            <td th:text="${product.getDescription()}"></td>-->
+<!--            <td th:text="${product.getPriceInCents()}"></td>-->
+<!--            <td th:text="${product.isInStock()}"></td>-->
+<!--            <td><a th:href="@{'/products/' + ${product.getId()}}">View Page</a></td>-->
+<!--        </tr>-->
+<!--    </th:block>-->
+<!--    </tbody>-->
+<!--</table>-->
+</body>
+</html>
