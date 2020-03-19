@@ -9,6 +9,9 @@
 </head>
 <title>Index Page</title>
 <body>
+<th:block th:include="users/logout.html :: logout">
+
+</th:block>
 <h1>Index Page</h1>
 
 <th:block th:each="post : ${Posts}">
