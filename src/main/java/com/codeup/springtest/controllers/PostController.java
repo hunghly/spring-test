@@ -6,6 +6,7 @@ import com.codeup.springtest.repositories.PostRepository;
 import com.codeup.springtest.repositories.UserRepository;
 import com.codeup.springtest.services.EmailService;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -66,8 +67,8 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String doPostCreation(@ModelAttribute Post post) {
-        User hung = new User(1,"hung", "hunghly@gmail.com", "123");
-        post.setUser(hung);
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(loggedInUser);
         postDao.save(post);
         emailDao.prepareAndSend(post, "Post Created!", "We created your post: " + post.getTitle());
         return "redirect:/posts";
