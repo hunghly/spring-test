@@ -47,7 +47,6 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String viewIndividualPost(@PathVariable long id, Model view) {
-//        Post post = new Post("I like turtles", "I like all the ninja turtles", bob);
         view.addAttribute("post", postDao.getOne(id));
         return "/posts/show";
     }
