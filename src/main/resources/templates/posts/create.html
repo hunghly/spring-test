@@ -6,32 +6,27 @@
 </head>
 <body>
 
-<th:block th:if="${action == 'create'}">
-    <h1>Create</h1>
-    <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
-        Title:
-        <input th:field="*{title}">
-        <br/>
-        Body:
-        <input th:field="*{body}">
-        <br/>
-        <input type="submit">
-    </form>
-</th:block>
-<th:block th:if="${action == 'edit'}">
-    <h1>Edit</h1>
-    <form th:action="@{/posts/edit}" th:method="post" th:object="${post}">
-        <input type="hidden" th:field="*{id}">
-        Title:
-        <input th:field="*{title}">
-        <br/>
-        Body:
-        <input th:field="*{body}">
-        <br/>
-        <input type="submit">
-    </form>
-</th:block>
 
+<th:block th:if="${action != null}">
+    <th:block th:if="${action == 'create'}">
+        <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
+    </th:block>
+    <th:block th:if="${action == 'edit'}">
+        <form th:action="@{/posts/edit}" th:method="post" th:object="${post}">
+    </th:block>
+    <th:block>
+        <form th:object="${post}">
+            <input th:if="${action == 'edit'}" type="hidden" th:field="*{id}">
+            Title:
+            <input th:field="*{title}">
+            <br/>
+            Body:
+            <input th:field="*{body}">
+            <br/>
+            <input type="submit">
+        </form>
+    </th:block>
+</th:block>
 
 </body>
 </html>
