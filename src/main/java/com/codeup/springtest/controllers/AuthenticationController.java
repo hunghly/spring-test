@@ -15,8 +15,8 @@ public class AuthenticationController {
 
     @GetMapping("/login/test")
     public String testLoginData(Model view) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(user.getUsername());
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        System.out.println(user.getUsername());
 
         return "users/test-sec";
     }

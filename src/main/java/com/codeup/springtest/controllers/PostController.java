@@ -36,12 +36,7 @@ public class PostController {
     @RequestMapping(path="/posts", method = RequestMethod.GET)
     public String viewIndexPage(Model view) {
         List<Post> posts = postDao.findAll();
-
-//        User found = userDao.findUserByUsername("hung");
-//        System.out.println(found.getUsername());
-//        System.out.println(found.getEmail());
-
-        view.addAttribute("Posts", posts);
+        view.addAttribute("posts", posts);
         return "/posts/index";
     }
 
