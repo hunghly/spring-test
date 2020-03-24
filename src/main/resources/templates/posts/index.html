@@ -23,7 +23,9 @@
 <!--    Checks to see if user is logged in-->
     <div sec:authorize="isAuthenticated()">
 <!--        Checks to see if person who created the post is also the person logged in-->
-        <button th:if="${post.getUser().id == #authentication.getPrincipal().id}" type="submit"><a th:href="@{'/posts/delete/' + ${post.getId()}}">Delete Ad</a></button>
+        <form th:action="@{|/posts/delete/${post.id}|}" th:method="post" th:object="${post}">
+            <button th:if="${post.getUser().id == #authentication.getPrincipal().id}" type="submit">Delete Ad</button>
+        </form>
     </div>
 </th:block>
 </body>

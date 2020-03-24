@@ -33,7 +33,7 @@ public class PostController {
     }
 
 
-    @RequestMapping(path="/posts", method = RequestMethod.GET)
+    @GetMapping("/posts")
     public String viewIndexPage(Model view) {
         List<Post> posts = postDao.findAll();
         view.addAttribute("posts", posts);
@@ -42,12 +42,14 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String viewIndividualPost(@PathVariable long id, Model view) {
+        System.out.println("Something broke here");
         view.addAttribute("post", postDao.getOne(id));
         return "/posts/show";
     }
 
-    @GetMapping("/posts/delete/{id}")
+    @PostMapping("/posts/delete/{id}")
     public String doDeletePost(@PathVariable long id, Model view) {
+        System.out.println(id);
         postDao.deleteById(id);
         return "redirect:/posts";
     }

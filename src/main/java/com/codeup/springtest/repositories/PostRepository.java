@@ -33,4 +33,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Override
     void delete(Post post);
+
+    Post findByTitle(String title);
 }
