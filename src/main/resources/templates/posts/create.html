@@ -12,7 +12,7 @@
         <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
     </th:block>
     <th:block th:if="${action == 'edit'}">
-        <form th:action="@{/posts/edit}" th:method="post" th:object="${post}">
+        <form th:action="@{|/posts/edit/${post.id}|}" th:method="post" th:object="${post}">
     </th:block>
     <th:block>
         <form th:object="${post}">

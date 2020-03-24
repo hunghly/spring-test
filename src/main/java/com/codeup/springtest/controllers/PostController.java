@@ -76,11 +76,11 @@ public class PostController {
         return "posts/create";
     }
 
-    @RequestMapping(path = "/posts/edit", method = RequestMethod.POST)
-    public String doPostEdit(@ModelAttribute Post post, @RequestParam Long id) {
+    @RequestMapping(path = "/posts/edit/{id}", method = RequestMethod.POST)
+    public String doPostEdit(@ModelAttribute Post post, @PathVariable Long id) {
         // need stuff here
         Post foundPost = postDao.getOne(id);
         postDao.updateById(post.getTitle(), post.getBody(), foundPost.getUser(), id);
-        return "redirect:/posts";
+        return "redirect:/posts/" + id;
     }
 }
