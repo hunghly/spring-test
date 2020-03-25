@@ -24,14 +24,14 @@ public class ProductController {
     public String viewProducts(Model view, @PageableDefault(value=10) Pageable pageable) {
         view.addAttribute("page", productDao.findAll(pageable));
 //        view.addAttribute("products", productDao.findAll());
-        return "/products/index";
+        return "products/index";
     }
 
     @GetMapping("/products/{id}")
     public String viewProduct(@PathVariable long id, Model view) {
         Product product = productDao.getOne(id);
         view.addAttribute("product", product);
-        return "/products/product-page";
+        return "products/product-page";
     }
 
     @PostMapping("/products/delete/{id}")
@@ -43,7 +43,7 @@ public class ProductController {
     @GetMapping("/products/create")
     public String showCreateProduct(Model view) {
         view.addAttribute("product", new Product());
-        return "/products/create";
+        return "products/create";
     }
 
     @PostMapping("/products/create")
@@ -79,7 +79,7 @@ public class ProductController {
 //        }
         view.addAttribute("query", query);
         view.addAttribute("page", productList);
-        return "/products/index";
+        return "products/index";
     }
 
 }
