@@ -47,8 +47,7 @@ public class PostController {
     }
 
     @PostMapping("/posts/delete/{id}")
-    public String doDeletePost(@PathVariable long id, Model view) {
-        System.out.println(id);
+    public String doDeletePost(@PathVariable long id) {
         postDao.deleteById(id);
         return "redirect:/posts";
     }
