@@ -37,21 +37,20 @@ public class PostController {
     public String viewIndexPage(Model view) {
         List<Post> posts = postDao.findAll();
         view.addAttribute("posts", posts);
-        return "/posts/index";
+        return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
     public String viewIndividualPost(@PathVariable long id, Model view) {
-        System.out.println("Something broke here");
         view.addAttribute("post", postDao.getOne(id));
-        return "/posts/show";
+        return "posts/show";
     }
 
     @PostMapping("/posts/delete/{id}")
     public String doDeletePost(@PathVariable long id, Model view) {
         System.out.println(id);
         postDao.deleteById(id);
-        return "redirect:/posts";
+        return "redirect:posts";
     }
 
     @GetMapping("/posts/create")
@@ -67,7 +66,7 @@ public class PostController {
         post.setUser(loggedInUser);
         postDao.save(post);
         emailDao.prepareAndSend(post, "Post Created!", "We created your post: " + post.getTitle());
-        return "redirect:/posts";
+        return "redirect:posts";
     }
 
     @GetMapping("/posts/edit/{id}")
@@ -83,6 +82,6 @@ public class PostController {
         // need stuff here
         Post foundPost = postDao.getOne(id);
         postDao.updateById(post.getTitle(), post.getBody(), foundPost.getUser(), id);
-        return "redirect:/posts/" + id;
+        return "redirect:posts" + id;
     }
 }

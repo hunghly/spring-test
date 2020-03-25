@@ -15,6 +15,7 @@
     <description>Testing Spring Project</description>
 
     <properties>
+        
         <java.version>11</java.version>
 <!--        Skip test will skip junit testing-->
         <skipTests>true</skipTests>
