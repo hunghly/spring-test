@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
 <h1>Show Page</h1>
 <th:block th:if="${post != null}">
@@ -14,5 +15,8 @@
     <h3 th:text="${post.getBody()}"></h3>
     <h3 th:text="${post.getUser().getEmail()}"></h3>
 </th:block>
+
+<div th:replace="partials :: scripts">
+</div>
 </body>
 </html>
