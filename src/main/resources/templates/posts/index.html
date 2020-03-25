@@ -20,9 +20,15 @@
         <h3 th:text="${post.body}"></h3>
         <h3 th:text="${post.getUser().getEmail()}"></h3>
     </div>
+    <form th:action="@{|/posts/${post.id}|}" th:method="get" th:object="${post}">
+        <button type="submit">View Ad Page</button>
+    </form>
 <!--    Checks to see if user is logged in-->
     <div sec:authorize="isAuthenticated()">
 <!--        Checks to see if person who created the post is also the person logged in-->
+        <form th:action="@{|/posts/edit/${post.id}|}" th:method="post" th:object="${post}">
+            <button th:if="${post.getUser().id == #authentication.getPrincipal().id}" type="submit">Edit Ad</button>
+        </form>
         <form th:action="@{|/posts/delete/${post.id}|}" th:method="post" th:object="${post}">
             <button th:if="${post.getUser().id == #authentication.getPrincipal().id}" type="submit">Delete Ad</button>
         </form>
