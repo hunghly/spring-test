@@ -81,6 +81,6 @@ public class PostController {
         // need stuff here
         Post foundPost = postDao.getOne(id);
         postDao.updateById(post.getTitle(), post.getBody(), foundPost.getUser(), id);
-        return "redirect:/posts/show/" + id;
+        return "redirect:/posts/" + id;
     }
 }
