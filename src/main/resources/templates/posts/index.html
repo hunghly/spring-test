@@ -8,7 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<title>Index Page</title>
 <body>
 
 <th:block sec:authorize="isAuthenticated()">
@@ -37,5 +36,8 @@
         </form>
     </div>
 </th:block>
+
+<div th:replace="partials :: scripts">
+</div>
 </body>
 </html>
