@@ -10,6 +10,8 @@
 </head>
 <body>
 
+<div th:replace="partials :: navbar"></div>
+
 <th:block sec:authorize="isAuthenticated()">
     <div th:include="users/logout.html :: logout">
     </div>

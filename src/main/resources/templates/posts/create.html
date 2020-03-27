@@ -17,11 +17,14 @@
     <th:block>
         <form th:object="${post}">
             <input th:if="${action == 'edit'}" type="hidden" th:field="*{id}">
-            Title:
-            <input th:field="*{title}">
+            <label for="title">Title:</label>
+            <input th:field="*{title}" name="title" id="title"/>
+            <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+<!--            <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"/>-->
             <br/>
-            Body:
-            <input th:field="*{body}">
+            <label for="body">Body:</label>
+            <input th:field="*{body}" name="body" id="body"/>
+            <p th:if="${#fields.hasErrors('body')}" th:errors="*{body}"/>
             <br/>
             <input type="submit">
         </form>

@@ -1,6 +1,8 @@
 package com.codeup.springtest.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table (name="posts")
@@ -13,9 +15,12 @@ public class Post {
 
     // Assigning the columns
     @Column(nullable = false)
+    @NotBlank(message = "Posts must have a title")
     private String title;
 
     @Column(columnDefinition = "TEXT")
+    @NotBlank(message = "Posts must have a body")
+    @Size(min = 3, message = "body must be at least 3 characters long.")
     private String body;
 
     @ManyToOne
